@@ -115,6 +115,9 @@ impl State {
     pub(super) fn transition_to_running(&self) -> TransitionToRunning {
         self.fetch_update_action(|mut next| {
             let action;
+            if !next.is_notified() {
+                eprintln!("about to assert for next that isn't notified: {next:?}");
+            }
             assert!(next.is_notified());
 
             if !next.is_idle() {
